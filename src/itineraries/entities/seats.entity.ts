@@ -1,5 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Itinerary } from './itinerary.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Bus } from './bus.entity';
 
 @Entity('seats')
 export class Seat {
@@ -9,9 +15,7 @@ export class Seat {
   @Column()
   seatNumber: string;
 
-  @Column({ default: true })
-  isAvailable: boolean;
-
-  @ManyToOne(() => Itinerary, (itinerary) => itinerary.seats)
-  itinerary: Itinerary;
+  @ManyToOne(() => Bus, (bus) => bus.seats)
+  @JoinColumn({ name: 'bus_uuid', referencedColumnName: 'uuid' })
+  bus: Bus;
 }

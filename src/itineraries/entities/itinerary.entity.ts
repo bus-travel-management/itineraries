@@ -3,7 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Bus } from './bus.entity';
 import { Seat } from './seats.entity';
@@ -29,8 +29,10 @@ export class Itinerary {
   price: number;
 
   @ManyToOne(() => Bus, (bus) => bus.itineraries)
+  @JoinColumn({ name: 'bus_uuid', referencedColumnName: 'uuid' })
   bus: Bus;
 
-  @OneToMany(() => Seat, (seat) => seat.itinerary)
-  seats: Seat[];
+  @ManyToOne(() => Seat)
+  @JoinColumn({ name: 'seat_uuid', referencedColumnName: 'uuid' })
+  seat: Seat;
 }

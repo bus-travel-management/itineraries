@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Itinerary } from './itinerary.entity';
+import { Seat } from './seats.entity';
 
 @Entity('buses')
 export class Bus {
@@ -33,4 +34,7 @@ export class Bus {
 
   @OneToMany(() => Itinerary, (itinerary) => itinerary.bus)
   itineraries: Itinerary[];
+
+  @OneToMany(() => Seat, (seat) => seat.bus)
+  seats: Seat[];
 }
